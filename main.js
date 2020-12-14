@@ -1,29 +1,27 @@
-import axios from "axios"
-const button = document.getElementById("getadvice");
+var button = document.getElementById("getadvice");
 
 function advice(random) {
-  const url = `https://api.adviceslip.com/advice`
-  axios.get(url)
-    .then(function (response) {
-      let ran = response.data.slip.advice
 
-      document.getElementById("random").innerText = `Get Advice: ${ran}`
+  $(document).ready(function () {
+    $.ajax({
+      method: "GET",
+      url: "https://api.adviceslip.com/advice",
+      dataType: "JSON",
+      success: function (response) {
+        console.log(response)
+        var ran = response.slip.advice
+        document.getElementById("random").innerText = "Get Advice:" + ran
+      }
 
-
-
-      console.log(response);
     })
-    .catch(function (error) {
-      const messageElement = document.getElementById("error");
-      messageElement.innerText = error;
-    })
+  });
 
 }
-window.onload = function () {
-  document.getElementById("getadvice").onclick = function () {
+document.getElementById("random").innerText = " "
 
-    advice(random);
-  }
+document.getElementById("getadvice").onclick = function () {
+  advice(random);
+
 }
 
 
